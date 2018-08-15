@@ -105,8 +105,7 @@ app.post('/login', (req, res) => {
     username,
     organization,
     site
-  }, JWT_SECRET,
-  {
+  }, JWT_SECRET, {
     issuer: 'jwt-server',
     subject: 'auth-token',
     audience: userId,
@@ -125,7 +124,11 @@ app.post('/login', (req, res) => {
 app.get('/random-user', (req, res) => {
   const user = faker.helpers.userCard();
   user.avatar = faker.image.avatar();
-  res.json(user);
+  res
+    .status(200)
+    .send({
+      randomUser: user
+    });
 });
 
 app.get('/me', (req, res) => {
